@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procura AI — Purchasing Intelligence</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="logo">P</div>
+            <div>
+                <b>Procura AI</b>
+                <small>Purchasing Intelligence</small>
+            </div>
+        </div>
+
+        <div class="nav-title">WORKSPACE</div>
+        <button class="nav active" data-scenario="1">
+            <span>◈</span> Recommendation Review
+        </button>
+        <button class="nav" data-scenario="2">
+            <span>↗</span> Supplier Shortfall
+        </button>
+
+        <div class="agent-status">
+            <i></i>
+            <div><b>Agent online</b><small>Decision engine ready</small></div>
+        </div>
+    </aside>
+
+    <main>
+        <header class="header">
+            <div>
+                <div class="eyebrow">AI PURCHASING AGENT</div>
+                <h1 id="pageTitle">Purchase Recommendation Review</h1>
+                <p id="pageSubtitle">Investigate constraints before approving a purchasing recommendation.</p>
+            </div>
+            <div class="header-right">
+                <span class="live"><i></i> LIVE</span>
+                <button class="reset" id="reset">Reset</button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-card">
+                <div class="hero-row">
+                    <div>
+                        <span class="scenario-tag">SCENARIO <b id="scenarioNo">01</b></span>
+                        <h2 id="heroTitle">Should we buy 800 units?</h2>
+                    </div>
+                    <div class="spark">✦</div>
+                </div>
+                <p id="heroText">The agent checks inventory, demand, open POs, supplier constraints, budget and storage before deciding.</p>
+            </div>
+            <div class="decision-metric">
+                <span>DECISION</span>
+                <strong id="metric">—</strong>
+                <small id="metricHint">Run analysis to calculate</small>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="panel">
+                <div class="panel-head">
+                    <div><span class="kicker">INPUT DATA</span><h3 id="formTitle">Purchasing situation</h3></div>
+                    <button class="sample" id="sample">Load sample</button>
+                </div>
+
+                <form id="form">
+                    <div id="form1">
+                        <div class="grid">
+                            <label>Product<input name="product" value="Premium Coffee Beans"></label>
+                            <label>Recommended quantity<input name="recommended_quantity" type="number" value="800"></label>
+                            <label>Current inventory<input name="current_inventory" type="number" value="300"></label>
+                            <label>Expected demand<input name="expected_demand" type="number" value="850"></label>
+                            <label>Open purchase orders<input name="open_purchase_orders" type="number" value="200"></label>
+                            <label>Supplier lead time (days)<input name="supplier_lead_time_days" type="number" value="5"></label>
+                            <label>Supplier minimum order<input name="supplier_minimum_order" type="number" value="100"></label>
+                            <label>Available budget<input name="available_budget" type="number" value="25000"></label>
+                            <label>Unit price<input name="unit_price" type="number" step="0.01" value="20"></label>
+                            <label>Storage capacity<input name="storage_capacity" type="number" value="1500"></label>
+                        </div>
+                    </div>
+
+                    <div id="form2" class="hidden">
+                        <div class="grid">
+                            <label>Product<input name="product" value="Organic Milk"></label>
+                            <label>Original PO quantity<input name="original_purchase_order" type="number" value="500"></label>
+                            <label>Supplier confirmed quantity<input name="supplier_confirmed_quantity" type="number" value="250"></label>
+                            <label>Current inventory<input name="current_inventory" type="number" value="80"></label>
+                            <label>Expected demand<input name="expected_demand" type="number" value="400"></label>
+                            <label>Alternative quantity<input name="alternative_supplier_quantity" type="number" value="250"></label>
+                            <label>Alternative unit price<input name="alternative_supplier_unit_price" type="number" step="0.01" value="24"></label>
+                            <label>Current supplier unit price<input name="current_supplier_unit_price" type="number" step="0.01" value="20"></label>
+                            <label>Available budget<input name="available_budget" type="number" value="10000"></label>
+                            <label class="checkbox">
+                                <span>Alternative supplier available</span>
+                                <input name="alternative_supplier_available" type="checkbox" checked>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="analyze" type="submit"><span>✦</span> Analyze with Purchasing Agent</button>
+                </form>
+            </div>
+
+            <div class="panel result">
+                <div class="panel-head">
+                    <div><span class="kicker">AGENT OUTPUT</span><h3>Decision & validation</h3></div>
+                    <span class="badge pending" id="badge">PENDING</span>
+                </div>
+
+                <div id="empty" class="empty">
+                    <div class="orb">✦</div>
+                    <h4>No decision yet</h4>
+                    <p>Run the agent to see the decision, reasoning, proposed action and validation result.</p>
+                </div>
+
+                <div id="output" class="hidden">
+                    <div class="decision-box">
+                        <div><span class="kicker">RECOMMENDATION</span><h2 id="decision">—</h2></div>
+                        <div class="decision-icon" id="icon">✓</div>
+                    </div>
+
+                    <p class="summary" id="summary"></p>
+
+                    <div class="cards">
+                        <div><div class="mini-title">ACTION</div><p id="action"></p></div>
+                        <div><div class="mini-title">VALIDATION</div><p id="validation"></p></div>
+                    </div>
+
+                    <div class="columns">
+                        <div><h4>Important factors</h4><ul id="factors"></ul></div>
+                        <div><h4>Risks / warnings</h4><ul id="risks"></ul></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>Procura AI Demo</span>
+            <span>Python • FastAPI • Scenarios 1 & 2 • Validation enabled</span>
+        </footer>
+    </main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
